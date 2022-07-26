@@ -1,0 +1,54 @@
+const { celebrate, Joi } = require('celebrate');
+const { regex } = require('../utils/regex');
+
+const updateUserValidate = celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().min(2).max(30),
+    email: Joi.string().min(2).max(30),
+  }),
+});
+
+const createMovieValidate = celebrate({
+  body: Joi.object().keys({
+    country: Joi.string().required(),
+    director: Joi.string().required(),
+    duration: Joi.number().required(),
+    year: Joi.string().required(),
+    description: Joi.string().required(),
+    image: Joi.string().pattern(regex).required(),
+    trailerLink: Joi.string().pattern(regex).required(),
+    thumbnail: Joi.string().pattern(regex).required(),
+    movieId: Joi.string().required(),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
+  }),
+});
+
+const paramsMovieValidate = celebrate({
+  params: Joi.object().keys({
+    movieId: Joi.string().hex().required(),
+  }),
+});
+
+const signupValidate = celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().min(2).max(30).required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+  }),
+});
+
+const signinValidate = celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+  }),
+});
+
+module.exports = {
+  updateUserValidate,
+  createMovieValidate,
+  paramsMovieValidate,
+  signupValidate,
+  signinValidate,
+};
