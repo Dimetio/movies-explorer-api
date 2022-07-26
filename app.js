@@ -17,6 +17,8 @@ const app = express();
 const options = {
   origin: [
     'http://localhost:3000',
+    'http://ddubinin.nomoredomains.xyz',
+    'https://ddubinin.nomoredomains.xyz',
   ],
   credentials: true,
 };
