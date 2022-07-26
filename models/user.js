@@ -19,14 +19,14 @@ const userSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: false,
+    required: true,
     minlength: [2, 'Не менее чем 2 символа'],
     maxlength: [30, 'Не более чем 30 символов'],
     default: 'Александр',
   },
 });
 
-userSchema.statics.findUserByCredentials = function (email, password) {
+userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
