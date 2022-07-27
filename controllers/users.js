@@ -51,7 +51,7 @@ const login = (req, res, next) => {
           maxAge: 360000 * 24 * 7,
           httpOnly: true,
           sameSite: 'none',
-          secure: true, // flase for postman
+          secure: true, // false for postman
         })
         .send({ token });
     })

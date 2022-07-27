@@ -46,8 +46,8 @@ app.all('*', (req, res, next) => {
   next(new NotFoundError('Неправильный путь. Error 404'));
 });
 
-app.use(errors());
+app.use(errors()); // ошибки от celebrate
 
-app.use(handleError);
+app.use(handleError); // ЦО
 
 app.listen(PORT);
