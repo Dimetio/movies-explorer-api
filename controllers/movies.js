@@ -17,7 +17,7 @@ const createMovie = (req, res, next) => {
     .then((movie) => res.send(movie))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError(err.message));
+        next(new BadRequestError());
         return;
       }
 
@@ -29,11 +29,11 @@ const deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
     .then((movie) => {
       if (!movie) {
-        throw new NotFoundError('Фильм не найден');
+        throw new NotFoundError();
       }
 
       if (movie.owner.toString() !== req.user._id) {
-        throw new ForbiddenError('Недостаточно прав');
+        throw new ForbiddenError();
       }
       Movie.findByIdAndRemove(req.params.movieId)
         .then(() => res.send(movie))

@@ -12,7 +12,7 @@ const getUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Запрашиваемый пользователь не найден');
+        throw new NotFoundError();
       }
       res.send(user);
     })
@@ -26,13 +26,13 @@ const updateUser = (req, res, next) => {
   User.findByIdAndUpdate(id, { name, email }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Запрашиваемый пользователь не найден');
+        throw new NotFoundError();
       }
       res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Данные не прошли валидацию'));
+        next(new BadRequestError());
         return;
       }
 
@@ -56,7 +56,7 @@ const login = (req, res, next) => {
         .send({ token });
     })
     .catch(() => {
-      next(new UnauthorizedError('Неправильные почта или пароль'));
+      next(new UnauthorizedError());
     });
 };
 
@@ -88,12 +88,12 @@ const createUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.code === 11000) {
-        next(new ConflictError(`Такой ${email} уже занят`));
+        next(new ConflictError());
         return;
       }
 
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Данные не прошли валидацию'));
+        next(new BadRequestError());
         return;
       }
 
