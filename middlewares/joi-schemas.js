@@ -4,7 +4,7 @@ const { regex } = require('../utils/regex');
 const updateUserValidate = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
-    email: Joi.string().min(2).max(30),
+    email: Joi.string().email(),
   }),
 });
 
@@ -26,7 +26,7 @@ const createMovieValidate = celebrate({
 
 const paramsMovieValidate = celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().hex().required(),
+    movieId: Joi.string().length(24).hex().required(),
   }),
 });
 
