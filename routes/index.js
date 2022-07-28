@@ -8,14 +8,14 @@ const NotFoundError = require('../errors/NotFoundError');
 
 router.post('/signup', signupValidate, createUser);
 router.post('/signin', signinValidate, signin);
-router.post('/signout', signout);
 router.use('/users', auth, usersRoutes);
 router.use('/movies', auth, moviesRoutes);
+router.post('/signout', signout);
 
-router.all('*', (req, res, next) => {
+router.use('*', auth);
+
+router.use('*', (req, res, next) => {
   next(new NotFoundError('Неправильный путь. Error 404'));
 });
-
-router.all('*', auth);
 
 module.exports = router;
