@@ -1,5 +1,7 @@
+const errorMessages = require('../utils/constants');
+
 class BadRequestError extends Error {
-  constructor(message = 'Данные не прошли валидацию') {
+  constructor(message = errorMessages.badRequest) {
     super(message);
     this.statusCode = 400;
   }

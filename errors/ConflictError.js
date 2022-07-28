@@ -1,5 +1,7 @@
+const errorMessages = require('../utils/constants');
+
 class ConflictError extends Error {
-  constructor(message = 'Такой email уже занят') {
+  constructor(message = errorMessages.conflict) {
     super(message);
     this.statusCode = 409;
   }
