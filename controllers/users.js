@@ -36,11 +36,16 @@ const updateUser = (req, res, next) => {
         return;
       }
 
+      if (err.code === 11000) {
+        next(new ConflictError());
+        return;
+      }
+
       next(err);
     });
 };
 
-const login = (req, res, next) => {
+const signin = (req, res, next) => {
   const { email, password } = req.body;
 
   User.findUserByCredentials(email, password)
@@ -51,7 +56,7 @@ const login = (req, res, next) => {
           maxAge: 360000 * 24 * 7,
           httpOnly: true,
           sameSite: 'none',
-          secure: true, // false for postman
+        // secure: true,
         })
         .send({ token });
     })
@@ -60,7 +65,7 @@ const login = (req, res, next) => {
     });
 };
 
-const logout = (req, res) => {
+const signout = (req, res) => {
   res.clearCookie('jwt')
     .send({ message: 'Cookie почищены' });
 };
@@ -104,7 +109,7 @@ const createUser = (req, res, next) => {
 module.exports = {
   createUser,
   updateUser,
-  login,
-  logout,
+  signin,
+  signout,
   getUser,
 };
