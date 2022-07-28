@@ -40,11 +40,11 @@ app.use(limiter);
 
 app.use('/', router); // все роуты
 
-app.use(errorLogger); // логгре запросов с ошибками
-
 app.all('*', (req, res, next) => {
   next(new NotFoundError('Неправильный путь. Error 404'));
 });
+
+app.use(errorLogger); // логгер запросов с ошибками
 
 app.use(errors()); // ошибки от celebrate
 
