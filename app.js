@@ -10,7 +10,6 @@ const limiter = require('./middlewares/limit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const handleError = require('./middlewares/handleError');
 const router = require('./routes');
-const NotFoundError = require('./errors/NotFoundError');
 
 const { PORT = 3000, DB_CONNECT = 'mongodb://localhost:27017/moviesdb' } = process.env;
 
@@ -39,10 +38,6 @@ app.use(helmet());
 app.use(limiter);
 
 app.use('/', router); // все роуты
-
-app.all('*', (req, res, next) => {
-  next(new NotFoundError('Неправильный путь. Error 404'));
-});
 
 app.use(errorLogger); // логгер запросов с ошибками
 
