@@ -66,8 +66,13 @@ const signin = (req, res, next) => {
 };
 
 const signout = (req, res) => {
-  res.clearCookie('jwt')
-    .send({ message: 'Cookie почищены' });
+  res.clearCookie('jwt', {
+    httpOnly: true,
+    sameSite: 'none',
+    secure: true,
+  })
+    .send({ message: 'Cookie почищены' })
+    .end();
 };
 
 const createUser = (req, res, next) => {
