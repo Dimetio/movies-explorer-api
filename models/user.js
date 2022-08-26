@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
+    minlength: [4, 'Не менее чем 4 символа'],
     required: [true, 'Обазательное поле'],
     select: false,
   },
